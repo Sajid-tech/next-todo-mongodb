@@ -4,15 +4,23 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
-const Modal = () => {
+const Modal = ({
+    _id,
+    title: existingTitle,
+    description: existingDescription,
+    date: existingDate,
+    isImportant: existingIsImportant,
+    isCompleted: existingIsCompleted,
+
+}) => {
 
     const [redirect, setRedirect] = useState(false)
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [date, setDate] = useState('');
-    const [isImportant, setIsImportant] = useState(false);
-    const [isCompleted, setIsCompleted] = useState(false);
+    const [title, setTitle] = useState(existingTitle || '');
+    const [description, setDescription] = useState(existingDescription || '');
+    const [date, setDate] = useState(existingDate || '');
+    const [isImportant, setIsImportant] = useState(existingIsImportant || false);
+    const [isCompleted, setIsCompleted] = useState(existingIsCompleted || false);
     const router = useRouter()
 
 
@@ -20,6 +28,8 @@ const Modal = () => {
     // send the data to db 
     async function createProduct(e) {
         e.preventDefault();
+
+
 
 
 
@@ -32,19 +42,21 @@ const Modal = () => {
             isCompleted,
         };
 
-        try {
-            await axios.post('/api/tasks', data);
-            console.log('Task created:', data);
-            setRedirect(true)
-        } catch (error) {
-            console.error('Error creating task:', error);
-            // Handle error, show error message to the user
+        if (_id) {
+            await axios.put('/api/tasks', { ...data, _id })
+            router.back()
         }
+
+        else {
+            await axios.post('/api/tasks', data);
+            setRedirect(true)
+        }
+
 
     }
 
     if (redirect) {
-        router.push('/task')
+        router.push('/')
         return null
     }
 

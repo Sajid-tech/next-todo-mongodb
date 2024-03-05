@@ -52,6 +52,7 @@ export async function GET(req) {
     }
 
     try {
+
         const tasks = await Task.find({ userEmail: session?.user.email });
         return NextResponse.json(tasks);
     } catch (error) {
@@ -60,6 +61,15 @@ export async function GET(req) {
     }
 
 
+}
+
+export async function PUT(req) {
+    const { title, description, date, isCompleted, isImportant, _id } = await req.json()
+    await Task.updateOne({ _id }, {
+        title, description, date, isCompleted, isImportant
+    })
+
+    return NextResponse.json(true)
 }
 
 

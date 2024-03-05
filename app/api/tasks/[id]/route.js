@@ -21,3 +21,26 @@ export async function DELETE(req, { params }) {
 
     }
 }
+
+
+export async function GET(req, { params }) {
+
+    const { id } = params
+
+
+
+
+
+    try {
+        await mongooseConnect()
+
+        const taskId = await Task.findById(id);
+
+        return NextResponse.json(taskId);
+    } catch (error) {
+        console.error("Error fetching tasks:", error);
+        return NextResponse.json({ error: "Failed to fetch tasks" }, { status: 500 });
+    }
+
+
+}

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 
 
-export default function DeleteProduct() {
+export default function DeleteTask() {
 
 
     const router = useRouter()
