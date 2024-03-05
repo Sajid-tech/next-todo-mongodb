@@ -1,7 +1,9 @@
+
 import Modal from '@/components/Modal'
 import React from 'react'
 
 const CreateTask = () => {
+
     return <>
         <section className="p-4 mt-6 lg:mt-0">
             <div className="sm:flex sm:items-center sm:justify-center">

@@ -1,6 +1,9 @@
+import Link from 'next/link'
 import React from 'react'
 
 const Card = ({ item, key }) => {
+
+
     return <>
         <div key={item._id}>
             <div className=" mt-2 max-w-md rounded-lg bg-green-200 shadow">
@@ -21,7 +24,8 @@ const Card = ({ item, key }) => {
 
                         <div className=' flex gap-2'>
                             <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"> Edit </span>
-                            <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"> Delete </span>
+                            <Link className='inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600' href={`/task/delete/` + item._id}>Delete</Link>
+                            {/* <button onClick={handleDelete} className="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"> Delete </button> */}
                         </div>
                     </div>
                 </div>

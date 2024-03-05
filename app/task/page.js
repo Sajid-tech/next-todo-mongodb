@@ -9,6 +9,7 @@ const Page = () => {
 
     const [post, setPost] = useState([])
 
+
     useEffect(() => {
 
         const fetchData = async () => {
