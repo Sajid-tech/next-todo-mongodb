@@ -80,7 +80,7 @@ const Header = () => {
                             </nav>
                         </div>
 
-                        <div className="mb-20 ">
+                        <div className="mb-20  hidden lg:block">
 
                             <Link
                                 onClick={handleLinkClick}
