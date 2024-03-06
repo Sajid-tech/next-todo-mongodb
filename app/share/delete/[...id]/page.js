@@ -1,14 +1,9 @@
 "use client"
-import axios from "axios";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import axios from 'axios'
+import { useParams, useRouter } from 'next/navigation'
+import React from 'react'
 
-
-
-
-export default function DeleteTask() {
-
+const DeleteShare = () => {
 
     const router = useRouter()
     const param = useParams()
@@ -17,14 +12,15 @@ export default function DeleteTask() {
     console.log(id, "param ke baad")
 
 
-    const deleteProduct = async () => {
+    const deleteShare = async () => {
         try {
-            await axios.delete(`/api/tasks/${id}`);
+            await axios.delete(`/api/shares/${id}`);
             router.back() // Redirect to the homepage after successful deletion
         } catch (error) {
             console.log("missing delte task", error)
         }
     };
+
 
     const back = () => {
         router.back()
@@ -32,7 +28,6 @@ export default function DeleteTask() {
 
 
     return <>
-
         <div className="h-80">
 
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-0">
@@ -51,13 +46,14 @@ export default function DeleteTask() {
                         </div>
                         <div className="mt-6 flex justify-end gap-3">
                             <button type="button" className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-100 focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400" onClick={back} >Cancel</button>
-                            <button type="button" className="rounded-lg border border-red-500 bg-red-500 px-4 py-2 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-red-700 hover:bg-red-700 focus:ring focus:ring-red-200 disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300" onClick={deleteProduct}>Delete</button>
+                            <button type="button" className="rounded-lg border border-red-500 bg-red-500 px-4 py-2 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-red-700 hover:bg-red-700 focus:ring focus:ring-red-200 disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300" onClick={deleteShare}>Delete</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
     </>
 }
+
+export default DeleteShare

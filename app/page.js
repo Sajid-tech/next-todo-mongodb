@@ -1,11 +1,35 @@
 "use client"
+import axios from "axios"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 
 export default function Home() {
 
   const { data: session } = useSession()
+  const [totalTask, setTotalTask] = useState([])
+  const [completedTask, setCompletedTask] = useState([])
+  const [important, setImportant] = useState([])
+  const [shares, setShares] = useState([])
+
+  useEffect(() => {
+    if (session) {
+      axios.get("/api/tasks").then((response) => {
+        setTotalTask(response.data);
+      });
+      axios.get("/api/completed").then((response) => {
+        setCompletedTask(response.data);
+      });
+      axios.get("/api/important").then((response) => {
+        setImportant(response.data);
+      });
+      axios.get("/api/shares").then((response) => {
+        setShares(response.data);
+      });
+    }
+  }, [session]);
+
 
 
 
@@ -16,7 +40,7 @@ export default function Home() {
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="text-center sm:text-left">
               <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Welcome Back, <span className="text-green-700">{session?.user?.name}</span></h1>
-              <button onClick={() => signOut()}>signout</button>
+
               <p className="mt-1.5 text-md text-gray-500 max-w-md">View the statistics about your business. Also manage and add products. 🎉</p>
             </div>
 
@@ -44,20 +68,72 @@ export default function Home() {
                 </svg>
               </Link>
 
-              <Link href={'https://next-frontend-shop.vercel.app/'}
+              <button
+                onClick={() => signOut()}
                 target="_blank"
                 className=" inline-flex items-center justify-center gap-1.5 rounded-lg border border-orange-500  px-5 py-3 text-sm font-medium text-orange-500 transition hover:bg-orange-50 hover:text-orange-700 focus:outline-none focus:ring"
                 type="button"
               >
-                <span className="text-sm font-medium">View Shop</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                </svg>
-              </Link>
+                <span className="text-sm font-medium">Logout</span>
+
+              </button>
             </div>
           </div>
         </div>
       </header>
+
+      <div className=" mt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-8">
+        <div className="h-32 rounded-lg bg-green-200 flex items-center justify-center">
+          <article
+            className="flex max-md:flex-col items-end justify-between rounded-lg gap-4"
+          >
+            <div>
+              <p className="text-sm text-gray-500">Total Task</p>
+
+              <p className="text-2xl font-medium text-gray-900">{totalTask?.length}</p>
+            </div>
+
+
+          </article>
+        </div>
+        <div className="h-32 rounded-lg bg-green-200 flex items-center justify-center">
+          <article
+            className="flex max-md:flex-col items-end justify-between rounded-lg gap-4"
+          >
+            <div>
+              <p className="text-sm text-gray-500">Completed Task</p>
+
+              <p className="text-2xl font-medium text-gray-900">{completedTask?.length}</p>
+            </div>
+
+          </article>
+        </div>
+        <div className="h-32 rounded-lg bg-green-200 flex items-center justify-center">
+          <article
+            className="flex max-md:flex-col items-end justify-between rounded-lg gap-4"
+          >
+            <div>
+              <p className="text-sm text-gray-500">Inmportant Task</p>
+
+              <p className="text-2xl font-medium text-gray-900">{important?.length}</p>
+            </div>
+
+          </article>
+        </div>
+        <div className="h-32 rounded-lg bg-green-200 flex items-center justify-center">
+          <article
+            className="flex max-md:flex-col items-end justify-between rounded-lg gap-4"
+          >
+            <div>
+              <p className="text-sm text-gray-500">Share Task</p>
+
+              <p className="text-2xl font-medium text-gray-900">{shares?.length}</p>
+            </div>
+
+          </article>
+
+        </div>
+      </div>
 
 
     </>
@@ -65,8 +141,8 @@ export default function Home() {
 
 
   return <>
-    <div className="flex flex-col lg:mr-[251px]  min-h-screen justify-center items-center  max-w-4xl m-auto">
-      <h1 className=" text-4xl font-bold max-w-lg text-center">Welcome to the admin of the website</h1>
+    <div className="flex flex-col lg:mr-[300px]  min-h-screen justify-center items-center  max-w-4xl m-auto">
+      <h1 className=" text-4xl font-bold max-w-lg text-center">Welcome to the Task Manager website</h1>
       <p className="font-medium my-4">An account is needed to view this page
       </p>
 
@@ -76,6 +152,11 @@ export default function Home() {
       >
         Sign In With Google
       </button>
+      <div className=" flex gap-2 mt-2">
+        <Link href={"https://github.com/Sajid-tech"} target="no_blank" className="border border-r-2 border-blue-300 rounded-md px-2.5 py-1.5 text-green-600  hover:text-orange-600 font-bold">Github</Link>
+        <Link href={"https://www.linkedin.com/in/sajid-h-8300a11ab"} target="no_blank" className="border border-r-2 border-blue-300 rounded-md px-2.5 py-1.5 text-green-600  hover:text-orange-600 font-bold">Linkedin</Link>
+      </div>
+
     </div>
   </>
 

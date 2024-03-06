@@ -14,7 +14,7 @@ export async function POST(req) {
 
     await mongooseConnect();
 
-    const { title, selectedItems } = await req.json();
+    const { title, selectedItems, description, isImportant, completedAt } = await req.json();
 
     try {
         // Assuming selectedItems is an array of strings containing names
@@ -22,6 +22,9 @@ export async function POST(req) {
             title,
             selectedItems: [session?.user.name, ...selectedItems],
             userName: session?.user.name,
+            description,
+            isImportant,
+            completedAt,
 
         };
 

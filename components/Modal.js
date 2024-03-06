@@ -25,6 +25,9 @@ const Modal = ({
 
 
 
+
+
+
     // send the data to db 
     async function createProduct(e) {
         e.preventDefault();
@@ -129,16 +132,13 @@ const Modal = ({
             </div>
 
             {/* upload button */}
-            <div className='mx-auto my-4'>
-                <button className="group relative inline-block focus:outline-none focus:ring w-full" type='submit'>
-                    <span
-                        className="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-green-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0 w-full"
-                    ></span>
-
-                    <span
-                        className="relative inline-block border-2 border-current px-8 py-3 text-sm font-bold uppercase tracking-widest text-black group-active:text-opacity-75 w-full"
-                    >
-                        Save Product
+            <div className="mx-auto my-4 flex justify-center ">
+                <button
+                    className="group inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
+                    href="#"
+                >
+                    <span className="block rounded-sm bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
+                        Save Task
                     </span>
                 </button>
             </div>
