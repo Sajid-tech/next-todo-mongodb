@@ -64,6 +64,7 @@ export async function GET(req) {
 }
 
 export async function PUT(req) {
+    await mongooseConnect()
     const { title, description, date, isCompleted, isImportant, _id } = await req.json()
     await Task.updateOne({ _id }, {
         title, description, date, isCompleted, isImportant

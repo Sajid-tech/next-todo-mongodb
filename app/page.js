@@ -11,7 +11,7 @@ export default function Home() {
 
   if (session) {
     return <>
-      <header className="bg-gray-50 mt-6 lg:mt-0">
+      <header className="bg-gray-50 ">
         <div className="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="text-center sm:text-left">
@@ -65,7 +65,7 @@ export default function Home() {
 
 
   return <>
-    <div className="flex flex-col  min-h-screen justify-center items-center  max-w-4xl m-auto">
+    <div className="flex flex-col lg:mr-[251px]  min-h-screen justify-center items-center  max-w-4xl m-auto">
       <h1 className=" text-4xl font-bold max-w-lg text-center">Welcome to the admin of the website</h1>
       <p className="font-medium my-4">An account is needed to view this page
       </p>

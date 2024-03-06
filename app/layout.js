@@ -3,6 +3,9 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Provider from "@/components/Provider";
 
+
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,14 +14,25 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Provider>
+    <Provider>
+      <html lang="en">
+
+        <body className={inter.className}>
+
+
+
           <Header />
-          {children}
-        </Provider>
-      </body>
-    </html>
+          <main className="lg:ml-[251px]">{children}</main>
+
+
+
+
+
+        </body>
+
+      </html>
+    </Provider>
   );
 }

@@ -56,7 +56,7 @@ const Modal = ({
     }
 
     if (redirect) {
-        router.push('/')
+        router.push('/task')
         return null
     }
 
