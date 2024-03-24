@@ -1,4 +1,5 @@
 "use client"
+import Login from "@/components/Login";
 import { signOut, useSession } from "next-auth/react"
 import Image from "next/image";
 
@@ -129,4 +130,7 @@ export default function Settings() {
             </div>
         </>
     }
+    return <>
+        <Login />
+    </>
 }

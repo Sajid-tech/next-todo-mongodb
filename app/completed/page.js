@@ -1,5 +1,6 @@
 "use client"
 import Card from '@/components/Card'
+import Login from '@/components/Login'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
@@ -11,13 +12,15 @@ const CompletedTask = () => {
 
     useEffect(() => {
 
-        const fetchData = async () => {
-            const res = await axios.get('/api/completed')
-            setCompletedTask(res.data)
-            console.log(res.data, "res.data completed")
+        if (session) {
+            const fetchData = async () => {
+                const res = await axios.get('/api/completed')
+                setCompletedTask(res.data)
+                console.log(res.data, "res.data completed")
+            }
+            fetchData()
         }
-        fetchData()
-    }, [])
+    }, [session])
 
     if (session) {
         return <>
@@ -43,7 +46,13 @@ const CompletedTask = () => {
             </div>
 
         </>
+
     }
+
+    return <>
+
+        <Login />
+    </>
 
 }
 
