@@ -1,4 +1,5 @@
 "use client"
+import Login from '@/components/Login'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
@@ -13,15 +14,17 @@ const ShareTask = () => {
 
     // for get share post on body
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await axios.get('/api/shares')
+        if (session) {
+            const fetchData = async () => {
+                const res = await axios.get('/api/shares')
 
-            setGetData(res.data)
-            console.log("res.dat.get data", res.data)
+                setGetData(res.data)
+                console.log("res.dat.get data", res.data)
+            }
+
+            fetchData()
         }
-
-        fetchData()
-    }, [])
+    }, [session])
 
 
     if (session) {
@@ -122,6 +125,9 @@ const ShareTask = () => {
             </div>
         </>
     }
+    return <>
+        <Login />
+    </>
 }
 
 export default ShareTask

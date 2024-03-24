@@ -1,5 +1,6 @@
 "use client"
 import Card from '@/components/Card'
+import Login from '@/components/Login'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
@@ -11,13 +12,15 @@ const ImportantTask = () => {
 
     useEffect(() => {
 
-        const fetchData = async () => {
-            const res = await axios.get('/api/important')
-            setImportant(res.data)
-            console.log(res.data, "res.data important")
+        if (session) {
+            const fetchData = async () => {
+                const res = await axios.get('/api/important')
+                setImportant(res.data)
+                console.log(res.data, "res.data important")
+            }
+            fetchData()
         }
-        fetchData()
-    }, [])
+    }, [session])
 
 
     if (session) {
@@ -45,6 +48,11 @@ const ImportantTask = () => {
 
         </>
     }
+
+    return <>
+
+        <Login />
+    </>
 }
 
 export default ImportantTask
